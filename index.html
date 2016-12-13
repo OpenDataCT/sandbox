@@ -1,63 +1,256 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highcharts Example</title>
-		
-		
-		<!-- 1. Add these JavaScript inclusions in the head of your page -->
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-		<script type="text/javascript" src="http://code.highcharts.com/modules/data.js"></script>
-		
-		
-		<!-- 2. Add the JavaScript to initialize the chart on document ready -->
-		<script type="text/javascript">
-		$(document).ready(function() {
-			
+<head>
+<title>Air Polution Data | HeapMap | DataViz | jQuery Grid and Form | AngularJS Grid And Form</title>
 　
-			
-			
-			/*
-			 Load the data from the CSV file. This is the contents of the file:
-			 
-				Apples,Pears,Oranges,Bananas,Plums
-				John,8,4,6,5
-				Jane,3,4,2,3
-				Joe,86,76,79,77
-				Janet,3,16,13,15
-				
-			 */ 
-			$.get('https://data.ct.gov/Government/Uniform-Chart-of-Accounts-Municipal-Spending-Data-/94fn-fqds/data.csv', function(csv) {
-			    $('#container').highcharts({
-			        chart: {
-			        	type: 'column'
-			        },
-			        data: {
-			            csv: csv
-			        },
-			        title: {
-						text: 'Fruit Consumption'
-					},
-					yAxis: {
-						title: {
-							text: 'Units'
-						}
-					}
-			    });
-			});
-			
-			
-		});
-		</script>
-		
-	</head>
-	<body>
-		
-		<!-- 3. Add the container -->
-		<div id="container" style="width: 800px; height: 400px; margin: 0 auto"></div>
-		
-				
-	</body>
+<script src="/fancytrack/fancytrack.min.js"></script>
+<script>
+FancyTrack.init({
+  url: '/trackerror/'
+});
+</script>
+　
+<script src="/js/jquery.min.js"></script>
+<link href="http://code.fancygrid.com/fancy.min.css" rel="stylesheet">
+<script src="http://code.fancygrid.com/fancy.min.js"></script>
+  
+  
+<style>
+.fancy-theme-gray .fancy-grid-cell {
+  border-color: transparent;
+  margin: 2px 2px 2px 2px;
+}
+　
+.fancy-theme-gray .city .fancy-grid-cell {
+  background: #626262 !important;
+  border-right-color: #626262;
+}
+　
+.fancy-theme-gray .city .fancy-grid-cell-inner {
+  color: white;
+}
+　
+body {
+  background: #f9f9f9 url(bg_body.gif) 0 0 repeat;
+}
+</style>
+　
+</head>
+<body>
+　
+<div style="margin: 10px auto 10px;width: 1132px;">
+  <div style="position:relative">
+    <div id="container" style=""></div>
+  </div>
+</div>
+　
+<script>
+var data = [
+  {city: 'Seoul',     data: [65, 60, 60, 60, 55, 54, 47, 45, 51, 61, 65, 67, 63, 55, 51, 43, 42, 47, 53, 55, 60, 61, 62, 63]},
+  {city: 'Hong Kong', data: [65, 55, 53, 47, 35, 33, 32, 35, 39, 42, 51, 52, 53, 55, 56, 58, 61, 62, 63, 64, 67, 68, 66, 69]},
+  {city: 'London',    data: [45, 42, 38, 35, 33, 38, 39, 42, 51, 55, 60, 55, 53, 52, 55, 57, 55, 57, 55, 53, 52, 51, 53, 55]},
+  {city: 'Paris',     data: [45, 43, 41, 38, 35, 30, 25, 30, 35, 40, 50, 53, 55, 55, 47, 46, 45, 45, 47, 48, 49, 50, 51, 52]},
+  {city: 'Sau Paulo', data: [45, 43, 38, 35, 33, 28, 25, 29, 31, 35, 39, 41, 42, 38, 35, 37, 34, 33, 32, 38, 39, 38, 37, 39]},
+  {city: 'San Francisco', data: [35, 28, 29, 28, 29, 29, 30, 35, 39, 40, 43, 41, 39, 38, 37, 35, 32, 35, 33, 34, 39, 36, 37, 38]},
+  {city: 'New York',  data: [38, 34, 39, 38, 39, 39, 38, 38, 43, 44, 45, 38, 39, 39, 38, 37, 36, 35, 33, 39, 34, 39, 34, 34,]},
+  {city: 'Brussels',  data: [34, 35, 31, 28, 27, 29, 28, 27, 28, 35, 40, 45, 35, 31, 28, 29, 27, 29, 31, 32, 33, 35, 35, 34]},
+  {city: 'Amsterdam', data: [34, 28, 25, 27, 28, 29, 29, 30, 31, 31, 32, 35, 35, 37, 38, 35, 32, 33, 32, 31, 32, 33, 34, 33]},
+  {city: 'Montreal',  data: [25, 23, 22, 21, 18, 19, 21, 22, 25, 21, 22, 20, 18, 17, 15, 18, 19, 20, 21, 22, 23, 25, 23, 24]},
+  {city: 'Washington',data: [25, 23, 22, 21, 18, 19, 17, 22, 25, 21, 22, 20, 18, 17, 15, 18, 19, 18, 21, 22, 23, 25, 23, 24]},
+  {city: 'Sydney',    data: [25, 23, 22, 21, 18, 19, 17, 19, 25, 21, 22, 17, 18, 17, 15, 18, 19, 18, 21, 22, 23, 25, 23, 24]},
+  {city: 'Boston',    data: [11, 12, 13, 15, 16, 19, 20, 23, 22, 24, 19, 18, 17, 16, 17, 18, 20, 21, 22, 22, 23, 21, 18, 17]},
+  {city: 'Chicago',   data: [25, 24, 28, 23, 21, 19, 20, 22, 21, 19, 18, 16, 11,  5,  4,  8,  9, 11, 12, 13, 14, 15, 17, 19]}
+];
+  
+window.onload = function() {
+  
+new FancyGrid({
+  theme: 'gray',
+  title: {
+    text: 'Pollution in cities by hour of the day*: Nitrogen dioxide',
+    style: {
+      'text-align': 'center'
+    }
+  },
+  renderTo: 'container',
+  width: 'fit',
+  height: 620,
+  columnLines: false,
+  striped: false,
+  data: {
+    items: data
+  },
+  defaults: {
+    type: 'string'
+  },
+  columns: [{
+    index: 'city',
+    title: '',
+    width: 85,
+    cls: 'city'
+  },{
+    text: 'AM',
+    defaults: {
+      width: 40,
+      align: 'center',
+      cls: 'data',
+      cellTip: function(o){
+        var title = Number(o.column.title),
+          data = o.data.data;
+        
+        if(title === 12){
+          title = 0;
+        }
+        
+        return [
+          'City: ' + o.data.city + '<br>',
+          'Time: ' + o.column.title + 'AM<br>',
+          'Value: ' + String(data[title]) + ' ug/m3'
+        ].join('');
+      },
+      render: function(o){
+        var title = Number(o.column.title),
+          data = o.data.data,
+          bgColor = '';
+          
+        if(title === 12){
+          title = 0;
+        }
+        
+        var value = data[title];
+        
+        o.value = '';
+        
+        if(value < 40){
+          bgColor = 'rgba(58, 132, 197, ' + Math.abs( ( value - 40 ) / 40 ) + ')';
+        } 
+        else{
+          bgColor = 'rgba(220, 107, 103, ' + ( (value - 40) / 30) + ')';
+        }
+        
+        o.style = {
+          'background-color': bgColor
+        };
+        
+        return o;
+      }
+    },
+    columns: [{
+      title: '12'
+    },{
+      title: '1'
+    },{
+      title: '2'
+    },{
+      title: '3'
+    },{
+      title: '4'
+    },{
+      title: '5'
+    },{
+      title: '6'
+    },{
+      title: '7'
+    },{
+      title: '8'
+    },{
+      title: '9'
+    },{
+      title: '10'
+    },{
+      title: '11'
+    }]
+  },{
+    text: 'PM',
+    defaults: {
+      width: 40,
+      align: 'center',
+      cls: 'data',
+      cellTip: function(o){
+        var title = Number(o.column.title),
+          data = o.data.data;
+        
+        if(title === 12){
+          title = 0;
+        }
+        
+        return [
+          'City: ' + o.data.city + '<br>',
+          'Time: ' + o.column.title + 'PM<br>',
+          'Value: ' + String(data[title]) + ' ug/m3'
+        ].join('');
+      },
+      render: function(o){
+        var title = Number(o.column.title),
+          data = o.data.data,
+          bgColor = '';
+          
+        if(title === 12){
+          title = 0;
+        }
+        
+        var value = data[11 + title];
+        
+        o.value = '';
+        
+        if(value < 40){
+          bgColor = 'rgba(58, 132, 197, ' + Math.abs( ( value - 40 ) / 40 ) + ')';
+        } 
+        else{
+          bgColor = 'rgba(220, 107, 103, ' + ( (value - 40) / 30) + ')';
+        }
+        
+        o.style = {
+          'background-color': bgColor
+        };
+        
+        return o;
+      }
+    },
+    columns: [{
+      title: '12'
+    },{
+      title: '1'
+    },{
+      title: '2'
+    },{
+      title: '3'
+    },{
+      title: '4'
+    },{
+      title: '5'
+    },{
+      title: '6'
+    },{
+      title: '7'
+    },{
+      title: '8'
+    },{
+      title: '9'
+    },{
+      title: '10'
+    },{
+      title: '11'
+    }]
+  },{
+    index: 'city',
+    title: '',
+    width: 85,
+    cls: 'city'
+  }],
+  footer: {
+    status: '* - Random Data',
+    source: {
+      sourceText: 'Inspired by',
+      text: 'Economist Daily Chart',
+      link: 'http://www.economist.com/blogs/graphicdetail/2016/08/daily-chart'
+    }
+  }
+});
+  
+}
+　
+</script>
+　
+</body>
 </html>
-　
