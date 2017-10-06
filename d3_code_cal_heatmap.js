@@ -8,8 +8,8 @@
     d3.eesur.heatmap = function module() {
 
         // input vars for getter setters
-        var startYear = 2013,
-            endYear = 2016,
+        var startYear = 2012,
+            endYear = 2017,
             colourRangeStart = '#fae9e9',
             colourRangeEnd = '#d62728',
             width = 950,
