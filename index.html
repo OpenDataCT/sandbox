@@ -29,7 +29,7 @@
       'use strict';
       
       var nestedData;
-      var parseDate = d3.time.format('%Y-%m-%d').parse;
+      var parseDate = d3.time.format('%d-%m-%Y').parse;
 
       // create chart
       var heatChart = d3.eesur.heatmap()
@@ -47,7 +47,7 @@
           });
 
       // apply after nesting data
-      d3.json('https://data.ct.gov/resource/deaths.json', function(error, data) {
+      d3.csv('data.csv', function(error, data) {
 
           if (error) return console.warn(error);
         
